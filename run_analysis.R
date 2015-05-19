@@ -58,6 +58,6 @@ library(reshape2)
 dataset <- melt(dataset, id.vars=c("activity", "subject"))
 mean_report <- dcast(dataset, activity + subject ~ variable, mean)
 
-# Write reshaped data to csv file for future analysis.
+# Write reshaped data to txt file..
 
-write.csv(mean_report, "UCI_HAR_mean_report.csv")
+write.table(mean_report, "UCI_HAR_mean_report.txt", row.name=FALSE)
