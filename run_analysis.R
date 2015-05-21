@@ -55,9 +55,10 @@ dataset <- dataset[ , columns]
 
 library(reshape2)
 
-dataset <- melt(dataset, id.vars=c("activity", "subject"))
-mean_report <- dcast(dataset, activity + subject ~ variable, mean)
+dataset_final <- melt(dataset, id.vars=c("activity", "subject"))
+mean_report <- dcast(dataset_final, activity + subject ~ variable, mean)
 
 # Write reshaped data to txt file..
 
 write.table(mean_report, "UCI_HAR_mean_report.txt", row.name=FALSE)
+
