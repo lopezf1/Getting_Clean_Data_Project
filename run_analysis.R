@@ -8,7 +8,7 @@ download("https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20H
 unzip("dataset.zip", exdir="./")
 
 # Read in UCI HAR Dataset using read.table function.  Add column names
-# to activity and subject data.
+# to activity and subject data.  Only take 2nd column of features data.
 
 x_test <- read.table("./UCI HAR Dataset/test/X_test.txt")
 x_train <- read.table("./UCI HAR Dataset/train/X_train.txt")
@@ -23,13 +23,13 @@ y_train <- read.table("./UCI HAR Dataset/train/y_train.txt",
                       col.names="activityNum")
 activity_labels <- read.table("./UCI HAR Dataset/activity_labels.txt")
 
-# Transpose feature data from column to row to add column names to
+# Transpose features data from column to row to add column names to
 # test and train data files.
 
 names(x_test) <- t(features); names(x_train) <- t(features)
 
 # Combine activity, subject and meaurement files (test and train) using
-# cbind and rbind to create data frame.
+# cbind and rbind to create larger data frame.
 
 test_data <- cbind(y_test, subject_test, x_test)
 train_data<- cbind(y_train, subject_train, x_train)
@@ -39,24 +39,23 @@ combined_data<- rbind(test_data, train_data)
 # columns.
 
 names(activity_labels) <- c("activityNum", "activity")
-dataset <- merge(activity_labels, combined_data,
+merged_data <- merge(activity_labels, combined_data,
                  by.x="activityNum", by.y="activityNum")
 
 # Extract only the measurements related to mean and standard deviation
 # from the data frame.  Use the grep function to  to search for
 # the correct data frame columns.
 
-columns <- sort(c(2, 3, grep("-mean", names(dataset)),
-                             grep("-std", names(dataset))))
-dataset <- dataset[ , columns]
+columns <- sort(c(2, 3, grep("-mean", names(merged_data)),
+                             grep("-std", names(merged_data))))
+final_data <- merged_data[ , columns]
 
 # Reshape data to get the mean of each measurement for each activity
 # and each subject.  Use "reshape2" library.
 
 library(reshape2)
-
-dataset_final <- melt(dataset, id.vars=c("activity", "subject"))
-mean_report <- dcast(dataset_final, activity + subject ~ variable, mean)
+final_data <- melt(final_data, id.vars=c("activity", "subject"))
+mean_report <- dcast(final_data, activity + subject ~ variable, mean)
 
 # Write reshaped data to txt file..
 
