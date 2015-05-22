@@ -27,4 +27,4 @@ These files are then merged using `cbind()` and `rbind()` to create one very lar
     final_data <- melt(final_data, id.vars=c("activity", "subject"))
     mean_report <- dcast(final_data, activity + subject ~ variable, mean)
     
-The final tidy data set is written to a txt file titled, "UCI_HAR_mean_report.txt" using the `write.table()` function.  It has 180 observations and 81 variables.
+The final tidy data set is written to a txt file titled, "mean_report.txt" using the `write.table()` function and displayed using the `View()` function.  It has 180 observations and 81 variables.  
