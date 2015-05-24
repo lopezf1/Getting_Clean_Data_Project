@@ -11,61 +11,82 @@ The daily living activities of 30 subjects were recorded using waist-mounted sma
 
 ### HAR Files
 
-Recorded data and other supportive files were read in by **run_analysis.R** and stored in the variables noted in the following table.
+HAR data and other supportive files were read in by **run_analysis.R** and stored in the variables noted in the following table.
 
-| R Variable | File Name | Description |
+R Variable | File Name | Description
 |--------|----------|-------------|
-| x_test | X_test.txt | Test data.|
-| y_test | y_test.txt | Test labels. |
-| subject_test | subject_test.txt | Test subject identification (1-30).|        
-| x_train | X_train.txt | Training data.|
-| y_train | y_train.txt | Training labels.|
-| subject_train | subject_train.txt| Training subject identification (1-30).|                   
-| features      | features.txt    | Measurement variables.|
-| activity_labels | activity_labels.txt| Activity names linked to labels.                   
+xTest | X_test.txt | Test data.
+yTest | y_test.txt | Test labels. 
+subjectTest | subject_test.txt | Test subject identification (1-30).        
+xTrain | X_train.txt | Training data.
+yTrain | y_train.txt | Training labels.
+subjectTrain | subject_train.txt| Training subject identification (1-30).                   
+features      | features.txt    | Measurement variables.
+activityLabels | activity_labels.txt| Activity names linked to labels.                   
 
 
 ### R Script Variables
 
-This data was then combined and reshaped into the final data set titled, `mean_report`.  The following table describes each variable created and used in the transformation process.
+This data was then combined and reshaped into the final data set titled, `meanReport`.  The following table describes each variable created and used in the transformation process.
 
-| R Variable | Description |
+R Variable | Description
 |-----|-----|
-| test_data | Combined test files for data, labels and subjects. |
-| train_data | Combined training files for data, labels and subjects. |
-| combined_data | Combined `test_data` and `train_data`. |
-| merged_data | Merging of `activity_labels` and `combined_data`. |
-| columns | Used to identify columns names specific to mean and standard deviation. |
-| final_data | `merged_data` subset into mean and standard deviation measurements.  Also transformed to long-format data. |
-| mean_report | `final_data` transformed to wide-format and the mean calculated for each measurement (column). |
+testData | Combined test files for data, labels and subjects.
+trainData | Combined training files for data, labels and subjects.
+combinedData | Combined `testData` and `trainData`.
+mergedData | Merging of `activityLabels` and `combinedData`.
+columns | Used to identify columns names specific to mean and standard deviation.
+finalData | `mergedData` subset into mean and standard deviation measurements.  Also transformed to long-format data.
+meanReport | `finalData` transformed to wide-format and the mean calculated for each measurement (column).
 
 ### Tidy Data Set Variables
 
-The following is a listing of each variable in the final data set `mean_report`.  The meaurement variable names were NOT modified because the initial HAR naming convention provided sufficient detail ('Acc' is accelerometer, 'Gyro' is gyroscope).  'XYZ' refers to measurements in the X, Y and Z direction.  The 't' and 'f' prefix in each measurement variable refers to time and frequency, respectively.  Each measurement variable has a an associated value of mean (mean()), standard deviation (std()) or (meanFreq()) that becomes a part of the variable name.  For example, `tBodyAcc-mean()-X` or `tGravityAcc-std()-Y`.
+>The meaurement variable names in `meanReport` were NOT modified because the initial HAR naming convention was detailed and clear in meaning.
 
-| Variable | Class | Units |
-|--------    |-------|-----|
-| activity| factor| "WALKING", "WALKING_UPSTAIRS", "WALKING_DOWNSTAIRS", "SITTING", "STANDING", "LAYING"|
-| subject | numeric | 1-30
-| tBodyAcc-XYZ| numeric | seconds|
-| tGravityAcc-XYZ| numeric | seconds|
-|tBodyAccJerk-XYZ| numeric | seconds|
-|tBodyGyro-XYZ| numeric | seconds|
-|tBodyGyroJerk-XYZ      | numeric | seconds|
-|tBodyAccMag| numeric | seconds|
-|tGravityAccMag| numeric | seconds|
-|tBodyAccJerkMag| numeric | seconds|
-|tBodyGyroMag| numeric | seconds|
-|tBodyGyroJerkMag| numeric | seconds|
-|fBodyAcc-XYZ| numeric | Hertz|
-|fBodyAccJerk-XYZ| numeric | Hertz |
-|fBodyGyro-XYZ| numeric | Hertz |
-|fBodyAccMag| numeric | Hertz |
-|fBodyAccJerkMag| numeric | Hertz |
-|fBodyGyroMag| numeric | Hertz |
-|fBodyGyroJerkMag| numeric | Hertz |
+These definitions will help the reader understand the composition of each measurement variable.
 
-Surprisingly, there are other variables in the final data set `mean_report` which were not described in the UCI HAR data set.  Those variable are:
+|Component | Definition |
+|----|----|
+|Acc	|		Acceleration|
+Gyro	|		Gyroscope
+XYZ		|		X, Y and Z coordinates
+t		|		Time
+f		|		Frequency
+Body | Linear body measurement
+Gravity | Measurement due to gravity
+Jerk | Jerk signal
+Mag | Magnitude
+mean()	|		Mean calculation
+std()	|		Standard deviation calculation
+meanFreq()	| Weighted average of frequency
+
+For example, `tBodyAcc-mean()-X` is the mean of the time measurement for linear body acceleration in the x coordinate direction.
+
+Below is a listing of a all variables found in the tidy data set called `meanReport`.
+
+Variable | Class | Units 
+|--------|-------|-----|
+activity| factor| "WALKING", "WALKING_UPSTAIRS", "WALKING_DOWNSTAIRS", "SITTING", "STANDING", "LAYING"
+subject | numeric | 1-30
+tBodyAcc-XYZ| numeric | seconds
+tGravityAcc-XYZ| numeric | seconds
+tBodyAccJerk-XYZ| numeric | seconds
+tBodyGyro-XYZ| numeric | seconds
+tBodyGyroJerk-XYZ| numeric | seconds
+tBodyAccMag| numeric | seconds
+tGravityAccMag| numeric | seconds
+tBodyAccJerkMag| numeric | seconds
+tBodyGyroMag| numeric | seconds
+tBodyGyroJerkMag| numeric | seconds
+fBodyAcc-XYZ| numeric | Hertz
+fBodyAccJerk-XYZ| numeric | Hertz 
+fBodyGyro-XYZ| numeric | Hertz 
+fBodyAccMag| numeric | Hertz 
+fBodyAccJerkMag| numeric | Hertz 
+fBodyGyroMag| numeric | Hertz 
+fBodyGyroJerkMag| numeric | Hertz 
+
+There are other variables in the final data set `meanReport` which were not well described in the UCI HAR file features_info.txt.  Those variable are:
 
 - fBodyBodyAccJerkMag-mean()
 - fBodyBodyAccJerkMag-std()

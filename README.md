@@ -24,7 +24,7 @@ The script titled, **run_analysis.R**, takes a multivariate, time-series data se
 These files are then merged using `cbind()` and `rbind()` to create one very large data set (10,299 observations and 563 variables).  To narrow the data down to just variables specific to mean and standard deviation, the `grep()` function is used.  The data set is then reshaped (using library "reshape2") into long-format data using the `melt()` function with ID variables identified as 'activity' and 'subject'.  The resulting data is then cast into wide-format data using the `dcast()` function and the mean is calculated for each measurement (variable).  Here is the code for this last transformation.
 
     library(reshape2)
-    final_data <- melt(final_data, id.vars=c("activity", "subject"))
-    mean_report <- dcast(final_data, activity + subject ~ variable, mean)
+    finalData <- melt(finalData, id.vars=c("activity", "subject"))
+    meanReport <- dcast(finalData, activity + subject ~ variable, mean)
     
 The final tidy data set is written to a txt file titled, "mean_report.txt" using the `write.table()` function and displayed using the `View()` function.  It has 180 observations and 81 variables.  
